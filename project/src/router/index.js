@@ -191,6 +191,30 @@ const routes = [
       import(
         /* webpackChunkName: "reuse", webpackPrefetch: true */ '../views/4_reuse/SlotView.vue'
       )
+  },
+  {
+    path: '/advanced/provide',
+    name: 'ProviderView',
+    component: () =>
+      import(
+        /* webpackChunkName: "advanced", webpackPrefetch: true */ '../views/5_advanced/ProviderView.vue'
+      )
+  },
+  {
+    path: '/advanced/directive',
+    name: 'CustomDirectiveView',
+    component: () =>
+      import(
+        /* webpackChunkName: "advanced", webpackPrefetch: true */ '../views/5_advanced/CustomDirectiveView.vue'
+      )
+  },
+  {
+    path: '/advanced/mixin',
+    name: 'MixinView',
+    component: () =>
+      import(
+        /* webpackChunkName: "advanced", webpackPrefetch: true */ '../views/5_advanced/MixinView.vue'
+      )
   }
 ]
 

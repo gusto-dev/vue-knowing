@@ -1,12 +1,20 @@
 <template>
   <div>
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/databinding/string">String</router-link>
-    </nav>
-    <router-view />
+    <header-layout></header-layout>
+    <div class="container">
+      <router-view />
+    </div>
+    <footer-layout></footer-layout>
   </div>
 </template>
+
+<script>
+import HeaderLayout from '@/components/layouts/HeaderLayout.vue'
+import FooterLayout from '@/components/layouts/FooterLayout.vue'
+
+export default {
+  components: { HeaderLayout, FooterLayout }
+}
+</script>
 
 <style></style>
