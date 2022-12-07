@@ -2,17 +2,23 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import PageTitle from './components/fragments/PageTitle.vue'
 import BootstrapVue3 from 'bootstrap-vue-3'
 import mixins from './mixins'
+import i18nPlugin from './plugins/i18n'
+import en from './i18n/en.js'
+import ko from './i18n/ko.js'
+import PageTitle from './components/fragments/PageTitle.vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
+
+const i18nStrings = { en, ko }
 
 const app = createApp(App)
 app.use(store)
 app.use(router)
 app.use(BootstrapVue3)
+app.use(i18nPlugin, i18nStrings)
 app.mixin(mixins)
 app.component('page-title', PageTitle)
 app.directive('focus', {
