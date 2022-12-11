@@ -21,41 +21,37 @@ app.use(BootstrapVue3)
 app.use(i18nPlugin, i18nStrings)
 app.mixin(mixins)
 app.component('page-title', PageTitle)
-app.directive('focus', {
-  mounted(el) {
-    el.focus()
-  }
-})
 app.directive('lowercase', {
   mounted(el) {
-    el.addEventListener('input', (event) => {
-      event.target.value = event.target.value.toLowerCase()
+    el.addEventListener('input', (e) => {
+      e.target.value = e.target.value.toLowerCase()
     })
   }
 })
 app.directive('uppercase', {
   mounted(el) {
-    el.addEventListener('input', (event) => {
-      event.target.value = event.target.value.toUpperCase()
+    el.addEventListener('input', (e) => {
+      e.target.value = e.target.value.toUpperCase()
     })
   }
 })
 app.directive('number', {
   mounted(el) {
-    el.addEventListener('input', (event) => {
-      event.target.value = event.target.value.replace(/[\D]/g, '')
+    el.addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/[\D]/g, '')
     })
   }
 })
 app.directive('korean', {
   mounted(el) {
-    el.addEventListener('input', (event) => {
-      event.target.value = event.target.value.replace(
-        /[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,
-        ''
-      )
+    el.addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '')
     })
   }
+})
+app.directive('font-size', (el, binding) => {
+  console.log(binding)
+  el.style.fontSize = binding.value + 'px'
 })
 app.mount('#app')
 

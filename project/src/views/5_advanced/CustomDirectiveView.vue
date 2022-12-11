@@ -20,11 +20,12 @@
       <input type="text" v-uppercase />
     </div>
     <div>
-      <input type="text" v-number />
+      <input type="text" v-number v-model="fontSize" />
       <input type="number" />
     </div>
     <div>
       <input type="text" v-korean />
+      <p v-font-size="fontSize">Uses font-size directive</p>
     </div>
   </div>
 </template>
@@ -49,7 +50,8 @@ export default {
   data() {
     return {
       sampleData: '',
-      color: 'red'
+      color: 'red',
+      fontSize: 20
     }
   },
   setup() {},
