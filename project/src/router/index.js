@@ -303,6 +303,70 @@ const routes = [
       import(
         /* webpackChunkName: "module", webpackPrefetch: true */ '../views/9_module/KakaoMapView.vue'
       )
+  },
+  {
+    path: '/module/font',
+    name: 'FontAwesomeView',
+    component: () =>
+      import(
+        /* webpackChunkName: "module", webpackPrefetch: true */ '../views/9_module/FontAwesomeView.vue'
+      )
+  },
+  {
+    path: '/module/calendar',
+    name: 'FullCalendarView',
+    component: () =>
+      import(
+        /* webpackChunkName: "module", webpackPrefetch: true */ '../views/9_module/FullCalendarView.vue'
+      )
+  },
+  {
+    path: '/module/sweet',
+    name: 'SweetAlert2View',
+    component: () =>
+      import(
+        /* webpackChunkName: "module", webpackPrefetch: true */ '../views/9_module/SweetAlert2View.vue'
+      )
+  },
+  {
+    path: '/module/overlay',
+    name: 'LoadingOverlayView',
+    component: () =>
+      import(
+        /* webpackChunkName: "module", webpackPrefetch: true */ '../views/9_module/LoadingOverlayView.vue'
+      )
+  },
+  {
+    path: '/module/table',
+    name: 'VueGoodTableView',
+    component: () =>
+      import(
+        /* webpackChunkName: "module", webpackPrefetch: true */ '../views/9_module/VueGoodTableView.vue'
+      )
+  },
+  {
+    path: '/chart/bar',
+    name: 'BarChartView',
+    component: () =>
+      import(
+        /* webpackChunkName: "chart", webpackPrefetch: true */ '../views/10_chart/BarChartView.vue'
+      )
+  },
+  {
+    path: '/chart/line',
+    name: 'LineChartView',
+    component: () =>
+      import(
+        /* webpackChunkName: "chart", webpackPrefetch: true */ '../views/10_chart/LineChartView.vue'
+      )
+  },
+  {
+    path: '/chart/donut',
+    name: 'DonutChartView',
+    component: () =>
+      import(
+        /* webpackChunkName: "chart", webpackPrefetch: true */ '../views/10_chart/DonutChartView.vue'
+      )
   }
 ]
 
