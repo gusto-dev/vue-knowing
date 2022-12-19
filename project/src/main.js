@@ -10,7 +10,12 @@ import ko from './i18n/ko.js'
 import PageTitle from './components/fragments/PageTitle.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUserSecret, faClock } from '@fortawesome/free-solid-svg-icons'
+import {
+  faUserSecret,
+  faClock,
+  faChevronRight,
+  faChevronLeft
+} from '@fortawesome/free-solid-svg-icons'
 import VueApexCharts from 'vue3-apexcharts'
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
@@ -25,7 +30,7 @@ import 'vue-good-table-next/dist/vue-good-table-next.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 
-library.add(faUserSecret, faClock)
+library.add(faUserSecret, faClock, faChevronRight, faChevronLeft)
 
 const i18nStrings = { en, ko }
 

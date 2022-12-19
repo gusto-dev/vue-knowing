@@ -1,36 +1,14 @@
 <template>
   <div class="mt-3">
     <div class="row mb-3">
-      <label for="selectCustomer" class="col-sm-2 col-form-label"
-        >Customer</label
-      >
-      <div class="col-sm-10">
-        <select
-          class="form-select"
-          id="selectCustomer"
-          @change="getCustomer"
-          v-model="selectedCustomerId"
-        >
-          <option value="">==Select Customer==</option>
-          <option
-            v-for="customer in customers"
-            :key="customer.id"
-            :value="customer.id"
-          >
-            {{ customer.name }}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="row mb-3">
       <label for="customerName" class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
         <input
           type="text"
-          class="form-control"
+          name=""
           id="customerName"
+          class="form-control"
           v-model="customer.name"
-          :disabled="!editmode"
         />
       </div>
     </div>
@@ -41,10 +19,10 @@
       <div class="col-sm-10">
         <input
           type="text"
-          class="form-control"
+          name=""
           id="customerCompany"
+          class="form-control"
           v-model="customer.company"
-          :disabled="!editmode"
         />
       </div>
     </div>
@@ -53,10 +31,10 @@
       <div class="col-sm-10">
         <input
           type="email"
+          name=""
+          id=""
           class="form-control"
-          id="customerEmail"
           v-model="customer.email"
-          :disabled="!editmode"
         />
       </div>
     </div>
@@ -65,10 +43,10 @@
       <div class="col-sm-10">
         <input
           type="tel"
+          name=""
+          id=""
           class="form-control"
-          id="customerPhone"
           v-model="customer.phone"
-          :disabled="!editmode"
         />
       </div>
     </div>
@@ -76,17 +54,8 @@
       <label for="customerAddress" class="col-sm-2 col-form-label"
         >Address</label
       >
-      <!-- <div class="col-sm-10">
-        <input
-          type="text"
-          class="form-control"
-          id="customerAddress"
-          v-model="customer.address"
-          :disabled="!editmode"
-        />
-      </div> -->
       <div class="col-sm-10">
-        <div class="input-group mb-1">
+        <div class="input-group mb-3">
           <input
             type="text"
             class="form-control"
@@ -94,14 +63,12 @@
             aria-label="우편번호"
             aria-describedby="postcode"
             v-model="customer.zonecode"
-            :disabled="!editmode"
             readonly
           />
           <button
             class="btn btn-outline-secondary"
             id="postcode"
             @click="openPostcode"
-            :disabled="!editmode"
           >
             검색
           </button>
@@ -111,36 +78,18 @@
           class="form-control"
           v-model="customer.roadAddress"
           placeholder="주소"
-          :disabled="!editmode"
           readonly
         />
         <input
           type="text"
-          class="form-control mt-1"
+          class="form-control"
           v-model="customer.detailAddress"
           placeholder="상세주소"
-          :disabled="!editmode"
         />
       </div>
     </div>
-    <button
-      class="btn btn-primary me-1"
-      @click="editmode = true"
-      v-show="!editmode"
-      :disabled="selectedCustomerId === ''"
-    >
-      Edit
-    </button>
-    <button
-      class="btn btn-danger me-1"
-      v-show="editmode"
-      @click="editmode = false"
-    >
-      Cancel
-    </button>
-    <button class="btn btn-secondary me-1" v-show="editmode" @click="doSave">
-      Save
-    </button>
+    <button class="btn btn-secondary me-1" @click="goToList">Cancel</button>
+    <button class="btn btn-primary" @click="doSave">Save</button>
   </div>
 </template>
 
@@ -149,8 +98,6 @@ export default {
   components: {},
   data() {
     return {
-      selectedCustomerId: '',
-      customers: [],
       customer: {
         name: '',
         company: '',
@@ -160,13 +107,11 @@ export default {
         zonecode: '',
         roadAddress: '',
         detailAddress: ''
-      },
-      editmode: false
+      }
     }
   },
   setup() {},
   created() {
-    this.getCustomersList()
     if (!window.daum) {
       this.loadScript()
     }
@@ -174,65 +119,43 @@ export default {
   mounted() {},
   unmounted() {},
   methods: {
-    async getCustomersList() {
-      this.customers = await this.$get('/customers')
-    },
-    async getCustomer() {
-      this.editmode = false
-      if (this.selectedCustomerId === 0) {
-        this.customer = {
-          name: '',
-          company: '',
-          email: '',
-          phone: '',
-          address: ''
-        }
-      } else {
-        const loader = this.$loading.show()
-        this.customer = await this.$get(`/customers/${this.selectedCustomerId}`)
-        loader.hide()
-      }
-    },
     async doSave() {
       if (this.customer.name === '') {
         return this.$swal(
-          'Name을 입력하세요.',
-          'Name은 필수 입력값입니다.',
+          'Name을 입력하세요',
+          'Name은 필수 입력값입니다',
           'info'
         )
       }
       if (this.customer.company === '') {
         return this.$swal(
-          'Company을 입력하세요.',
-          'Company은 필수 입력값입니다.',
+          'Company을 입력하세요',
+          'Company은 필수 입력값입니다',
           'info'
         )
       }
       if (this.customer.email === '') {
         return this.$swal(
-          'Email을 입력하세요.',
-          'Email은 필수 입력값입니다.',
+          'Email을 입력하세요',
+          'Email은 필수 입력값입니다',
           'info'
         )
       }
       if (this.customer.phone === '') {
         return this.$swal(
-          'Phone을 입력하세요.',
-          'Phone은 필수 입력값입니다.',
+          'Phone을 입력하세요',
+          'Phone은 필수 입력값입니다',
           'info'
         )
       }
-      if (this.customer.address === '') {
+      if (this.customer.zonecode === '') {
         return this.$swal(
-          'Address을 입력하세요.',
-          'Address은 필수 입력값입니다.',
+          'Address을 입력하세요',
+          'Address은 필수 입력값입니다',
           'info'
         )
       }
-
-      /**
-       * TODO: 정규식 이메일, 전화번호 체크 로직추가
-       */
+      // 정규식 - 이메일, 전화번호 체크 로직 추가
       const regexpTel = /^010-\d{4}-\d{4}$/
       const regexpEmail =
         /^([a-z]+\d*)+(\.?[a-z]+\d*)+@([a-z]+\d*)+(\.[a-z]{2,3})+$/
@@ -250,10 +173,9 @@ export default {
           'info'
         )
       }
-
       this.$swal({
-        title: '고객 정보를 저장 하시겠습니까?',
-        // text: '',
+        title: '신규고객을 생성 하시겠습니까?',
+        // text: '삭제된 데이터는 복구할 수 없습니다!',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -266,21 +188,25 @@ export default {
           const loader = this.$loading.show()
           this.customer.address =
             `(${this.customer.zonecode}) ${this.customer.roadAddress} ${this.customer.detailAddress}`.trim()
-          const r = await this.$put(
-            `/customers/${this.selectedCustomerId}`,
-            this.customer
-          )
+          const r = await this.$post('/customers', this.customer)
           loader.hide()
-          if (r.status === 200) {
+          if (r.status === 201) {
             this.$swal(
-              '저장 되었습니다.',
-              '고객 정보가 수정 되었습니다',
+              '생성 되었습니다.',
+              '신규고객이 생성 되었습니다',
               'success'
             )
-            this.editMode = false
+            // this.goToList()
+            this.$router.push({
+              path: '/template/p3/detail',
+              query: { id: r.data.id }
+            })
           }
         }
       })
+    },
+    goToList() {
+      this.$router.push({ path: '/template/p3/list' })
     },
     loadScript() {
       const script = document.createElement('script')
