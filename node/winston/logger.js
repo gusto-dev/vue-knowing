@@ -1,0 +1,48 @@
+const winston = require('winston');
+const winstonDaily = require('winston-daily-rotate-file'); // 로그파일을 일자별로 생성
+const path = require('path');
+const appRoot = require('app-root-path');
+const { createLogger } = require('winston');
+
+const logDir = `${appRoot}/logs`; // logs 디렉토리 하위에 로그파일 저장
+
+const { combine, timestamp, label, printf } = winston.format;
+
+const logFormat = printf(({ level, message, label, timestamp }) => {
+  return `${timestamp} [${label}] ${level}: ${message}`; // 로그출력 포멧 정의
+});
+
+const logger = createLogger({
+  format: combine(label({ label: 'NODE_PROJECT' }), timestamp(), logFormat),
+  transports: [
+    new winstonDaily({
+      level: 'info',
+      datePattern: 'YYYY-MM-DD',
+      dirname: logDir,
+      filename: `%DATE%.log`,
+      maxSize: '20m', // 로그파일 크기 정의
+      maxFiles: '30d', // 최근 30일치 로그파일만 저장
+    }),
+    new winstonDaily({
+      level: 'error',
+      datePattern: 'YYYY-MM-DD',
+      dirname: logDir,
+      filename: `%DATE%.log`,
+      maxSize: '20m', // 로그파일 크기 정의
+      maxFiles: '30d', // 최근 30일치 로그파일만 저장
+    }),
+  ],
+});
+
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+      ),
+    })
+  );
+}
+
+module.exports = logger;

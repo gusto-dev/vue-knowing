@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\lhg06\\workspace\\vue-knowing\\node\\logs\\.509bc76f99a3e12cd3f93183c9350c2a9ed7a3bd-audit.json",
+    "files": [
+        {
+            "date": 1672583243141,
+            "name": "C:\\Users\\lhg06\\workspace\\vue-knowing\\node\\logs\\2023-01-01.log",
+            "hash": "eb49ae8a7f2859c38dc97c200ad61d161aec39380bdf2dfdd16b9ba204126c76"
+        }
+    ],
+    "hashType": "sha256"
+}
